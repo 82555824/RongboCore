@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Rongbo.Common.Models;
 
 namespace RongboMvc
 {
@@ -23,7 +25,23 @@ namespace RongboMvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<Authentication>(Configuration.GetSection("Authentication"));
+            //cookie 身份验证
+            services.AddAuthentication(Configuration["Authentication:CookieAuthenticationScheme"])
+                .AddCookie(Configuration["Authentication:CookieAuthenticationScheme"], options =>
+                {
+                    options.LoginPath = "/home/login";
+                    options.ReturnUrlParameter = "returnurl";
+                    options.Cookie.Name = Configuration["Authentication:CookieName"];
+                    options.Cookie.Domain = Configuration["Authentication:CookieDomain"];
+                });
+
             services.AddControllersWithViews();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +62,8 @@ namespace RongboMvc
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
