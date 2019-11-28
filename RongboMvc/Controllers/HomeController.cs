@@ -20,6 +20,7 @@ namespace RongboMvc.Controllers
 
         public IActionResult Index()
         {
+           // return Ok(new { id = 1 ,name="111"}); ;
             return View();
         }
 

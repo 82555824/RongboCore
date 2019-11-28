@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RongboMvc", "RongboMvc\RongboMvc.csproj", "{F888B36D-F25C-41C4-9D6D-E1655BB41F9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Common", "Rongbo.Common\Rongbo.Common.csproj", "{44A7CADF-C172-4B1E-92E7-D8EBC3FF3022}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rongbo.Common", "Rongbo.Common\Rongbo.Common.csproj", "{44A7CADF-C172-4B1E-92E7-D8EBC3FF3022}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Core", "Rongbo.Core\Rongbo.Core.csproj", "{5AEB9219-C9C4-4501-AB13-D694E9A3ED1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{44A7CADF-C172-4B1E-92E7-D8EBC3FF3022}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44A7CADF-C172-4B1E-92E7-D8EBC3FF3022}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44A7CADF-C172-4B1E-92E7-D8EBC3FF3022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AEB9219-C9C4-4501-AB13-D694E9A3ED1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AEB9219-C9C4-4501-AB13-D694E9A3ED1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AEB9219-C9C4-4501-AB13-D694E9A3ED1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AEB9219-C9C4-4501-AB13-D694E9A3ED1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
