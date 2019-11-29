@@ -20,6 +20,7 @@ using Rongbo.Core.DependencyInjection;
 using Rongbo.UnitOfWork;
 using Rongbo.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace RongboMvc
 {
@@ -57,6 +58,7 @@ namespace RongboMvc
                         op.UseRowNumberForPaging();
                     });
             });
+            services.AddAutoMapper(MapperRegister.MapType());
 
             services.AddControllersWithViews();
         }

@@ -85,6 +85,56 @@ namespace Rongbo.Core
             return _repositories[type] as IRepository<TEntity>;
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            MapEntities(modelBuilder);
+        }
+
+        protected virtual void MapEntities(ModelBuilder modelBuilder)
+        {
+            var entityMethodInfo = modelBuilder.GetType().GetMethod("Entity", new Type[] { });
+            //var queryMethodInfo = modelBuilder.GetType().GetMethod("Query", new Type[] { });
+            //var registereds = new List<Type>();
+            foreach (var assembly in GetMapAssemblies())
+            {
+                foreach (var mapType in GetMapTypes(assembly))
+                {
+                    if (MapTypeFilter(mapType))
+                    {
+                        dynamic map = Dependency.Instance.Container.ResolveOptional(mapType);
+                        if (map != null)
+                        {
+                            Type type = null;
+                            if ((type = mapType.GetInterface("IEntityDbTypeMap`1")) != null)
+                            {
+                                var entityType = type.GenericTypeArguments.First();
+                                var methodInfo = entityMethodInfo.MakeGenericMethod(entityType);
+                                dynamic builder = methodInfo.Invoke(modelBuilder, null);
+                                map.EntityDbTypeMapping(builder);
+                            }
+                            //if ((type = mapType.GetInterface("IQueryDbTypeMap`1")) != null)
+                            //{
+                            //    var queryType = type.GenericTypeArguments.First();
+                            //    var methodInfo = queryMethodInfo.MakeGenericMethod(queryType);
+                            //    dynamic builder = methodInfo.Invoke(modelBuilder, null);
+                            //    map.QueryDbTypeMapping(builder);
+                            //    registereds.Add(queryType);
+                            //}
+                        }
+                    }
+                }
+            }
+
+            //var queryTypes = GetMapAssemblies().SelectMany(GetQueryTypes).Where(o => !registereds.Contains(o)).Where(QueryTypeFilter);
+            //foreach (var queryType in queryTypes)
+            //    queryMethodInfo.MakeGenericMethod(queryType).Invoke(modelBuilder, null);
+        }
+
+        protected virtual Assembly[] GetMapAssemblies()
+        {
+            return Reflection.Assemblies.ToArray();
+        }
+
         protected virtual bool MapTypeFilter(Type type)
         {
             return true;
