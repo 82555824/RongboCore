@@ -192,6 +192,11 @@ namespace Rongbo.Core
             var entity = await GetAsync(id);
             Remove(entity);
         }
+
+        protected DbQuery<TQuery> Query<TQuery>() where TQuery : class
+        {
+            return _context.Query<TQuery>();
+        }
     }
 
 }

@@ -5,13 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Rongbo.Core\Rongbo.Core.csproj" />
     <ProjectReference Include="..\Rongbo.Entity\Rongbo.Entities.csproj" />
-    <ProjectReference Include="..\Rongbo.Model\Rongbo.Models.csproj" />
+    <ProjectReference Include="..\Rongbo.UnitOfWork\Rongbo.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

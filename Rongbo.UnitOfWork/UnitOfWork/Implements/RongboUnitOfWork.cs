@@ -17,5 +17,10 @@ namespace Rongbo.UnitOfWork
         {
             return type.FullName.StartsWith("Rongbo.UnitOfWork.RongboMapping");
         }
+
+        protected override bool QueryTypeFilter(Type type)
+        {
+            return type.FullName.StartsWith("Rongbo.Entities.QueryEntities");
+        }
     }
 }

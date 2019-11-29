@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rongbo.Core", "Rongbo.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.UnitOfWork", "Rongbo.UnitOfWork\Rongbo.UnitOfWork.csproj", "{102C72A5-4248-4475-8124-2D4A90987C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Repository", "Rongbo.Repository\Rongbo.Repository.csproj", "{16405F2D-E17A-4EAF-8C43-7DEA5C6CBD9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Repositories", "Rongbo.Repository\Rongbo.Repositories.csproj", "{16405F2D-E17A-4EAF-8C43-7DEA5C6CBD9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Service", "Rongbo.Service\Rongbo.Service.csproj", "{E09C9C30-0100-4126-A92C-52E01306B2F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Services", "Rongbo.Service\Rongbo.Services.csproj", "{E09C9C30-0100-4126-A92C-52E01306B2F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Entity", "Rongbo.Entity\Rongbo.Entity.csproj", "{A5F454EE-695D-44F3-BFE3-176845116B7A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Entities", "Rongbo.Entity\Rongbo.Entities.csproj", "{A5F454EE-695D-44F3-BFE3-176845116B7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Model", "Rongbo.Model\Rongbo.Model.csproj", "{EB4A6E24-F51F-4C5E-98B6-40691F34233D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rongbo.Models", "Rongbo.Model\Rongbo.Models.csproj", "{EB4A6E24-F51F-4C5E-98B6-40691F34233D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

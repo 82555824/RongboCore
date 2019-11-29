@@ -6,8 +6,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rongbo.Core\Rongbo.Core.csproj" />
-    <ProjectReference Include="..\Rongbo.Entity\Rongbo.Entity.csproj" />
-    <ProjectReference Include="..\Rongbo.Model\Rongbo.Model.csproj" />
+    <ProjectReference Include="..\Rongbo.Entity\Rongbo.Entities.csproj" />
+    <ProjectReference Include="..\Rongbo.Model\Rongbo.Models.csproj" />
+    <ProjectReference Include="..\Rongbo.Repository\Rongbo.Repositories.csproj" />
     <ProjectReference Include="..\Rongbo.UnitOfWork\Rongbo.UnitOfWork.csproj" />
   </ItemGroup>
 

@@ -8,7 +8,6 @@
     <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,7 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Rongbo.Common\Rongbo.Common.csproj" />
     <ProjectReference Include="..\Rongbo.Core\Rongbo.Core.csproj" />
-    <ProjectReference Include="..\Rongbo.Service\Rongbo.Service.csproj" />
+    <ProjectReference Include="..\Rongbo.Service\Rongbo.Services.csproj" />
     <ProjectReference Include="..\Rongbo.UnitOfWork\Rongbo.UnitOfWork.csproj" />
   </ItemGroup>
 

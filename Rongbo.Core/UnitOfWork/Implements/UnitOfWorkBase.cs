@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Rongbo.Core.Entity;
 
 namespace Rongbo.Core
 {
@@ -93,8 +94,8 @@ namespace Rongbo.Core
         protected virtual void MapEntities(ModelBuilder modelBuilder)
         {
             var entityMethodInfo = modelBuilder.GetType().GetMethod("Entity", new Type[] { });
-            //var queryMethodInfo = modelBuilder.GetType().GetMethod("Query", new Type[] { });
-            //var registereds = new List<Type>();
+            var queryMethodInfo = modelBuilder.GetType().GetMethod("Query", new Type[] { });
+            var registereds = new List<Type>();
             foreach (var assembly in GetMapAssemblies())
             {
                 foreach (var mapType in GetMapTypes(assembly))
@@ -112,22 +113,22 @@ namespace Rongbo.Core
                                 dynamic builder = methodInfo.Invoke(modelBuilder, null);
                                 map.EntityDbTypeMapping(builder);
                             }
-                            //if ((type = mapType.GetInterface("IQueryDbTypeMap`1")) != null)
-                            //{
-                            //    var queryType = type.GenericTypeArguments.First();
-                            //    var methodInfo = queryMethodInfo.MakeGenericMethod(queryType);
-                            //    dynamic builder = methodInfo.Invoke(modelBuilder, null);
-                            //    map.QueryDbTypeMapping(builder);
-                            //    registereds.Add(queryType);
-                            //}
+                            if ((type = mapType.GetInterface("IQueryDbTypeMap`1")) != null)
+                            {
+                                var queryType = type.GenericTypeArguments.First();
+                                var methodInfo = queryMethodInfo.MakeGenericMethod(queryType);
+                                dynamic builder = methodInfo.Invoke(modelBuilder, null);
+                                map.QueryDbTypeMapping(builder);
+                                registereds.Add(queryType);
+                            }
                         }
                     }
                 }
             }
 
-            //var queryTypes = GetMapAssemblies().SelectMany(GetQueryTypes).Where(o => !registereds.Contains(o)).Where(QueryTypeFilter);
-            //foreach (var queryType in queryTypes)
-            //    queryMethodInfo.MakeGenericMethod(queryType).Invoke(modelBuilder, null);
+            var queryTypes = GetMapAssemblies().SelectMany(GetQueryTypes).Where(o => !registereds.Contains(o)).Where(QueryTypeFilter);
+            foreach (var queryType in queryTypes)
+                queryMethodInfo.MakeGenericMethod(queryType).Invoke(modelBuilder, null);
         }
 
         protected virtual Assembly[] GetMapAssemblies()
@@ -150,10 +151,10 @@ namespace Rongbo.Core
             return Reflection.GetTypesByInterface<IDbTypeMap>(assembly);
         }
 
-        //protected virtual IEnumerable<Type> GetQueryTypes(Assembly assembly)
-        //{
-        //    return Reflection.GetTypesByInterface<IQueryEntity>(assembly);
-        //}
+        protected virtual IEnumerable<Type> GetQueryTypes(Assembly assembly)
+        {
+            return Reflection.GetTypesByInterface<IQueryEntity>(assembly);
+        }
 
     }
 }
