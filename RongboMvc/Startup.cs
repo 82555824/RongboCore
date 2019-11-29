@@ -21,6 +21,8 @@ using Rongbo.UnitOfWork;
 using Rongbo.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Rongbo.Common.NLog;
+using Rongbo.Common.Settings;
 
 namespace RongboMvc
 {
@@ -60,7 +62,18 @@ namespace RongboMvc
             });
             services.AddAutoMapper(MapperRegister.MapType());
 
-            services.AddControllersWithViews();
+            services.AddNLog();
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options => {
+                //忽略循环引用
+                options.SerializerSettings.ReferenceLoopHandling = GlobalSettings.JsonSettings.ReferenceLoopHandling;
+                //不使用驼峰样式的key
+                options.SerializerSettings.ContractResolver = GlobalSettings.JsonSettings.ContractResolver;
+                //设置时间格式
+                options.SerializerSettings.DateFormatString = GlobalSettings.JsonSettings.DateFormatString;
+
+                options.SerializerSettings.ObjectCreationHandling = GlobalSettings.JsonSettings.ObjectCreationHandling;
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
