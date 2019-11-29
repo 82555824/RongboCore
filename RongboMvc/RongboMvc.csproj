@@ -18,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rongbo.Common\Rongbo.Common.csproj" />
+    <ProjectReference Include="..\Rongbo.Core\Rongbo.Core.csproj" />
+    <ProjectReference Include="..\Rongbo.UnitOfWork\Rongbo.UnitOfWork.csproj" />
   </ItemGroup>
 
 </Project>

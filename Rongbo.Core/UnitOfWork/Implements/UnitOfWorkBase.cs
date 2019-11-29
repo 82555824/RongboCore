@@ -12,24 +12,18 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Rongbo.Core
 {
     public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IUnitOfWorkContext
     {
-        private readonly IComponentContext _componentContext;
 
         private readonly Dictionary<Type, IRepository> _repositories = new Dictionary<Type, IRepository>();
 
         protected UnitOfWorkBase(DbContextOptions options) : base(options)
         {
         }
-
-        protected UnitOfWorkBase(DbContextOptions options, IComponentContext componentContext) : base(options)
-        {
-            _componentContext = componentContext;
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var loggerFactory = Log.GetLoggerFactory();
@@ -76,9 +70,7 @@ namespace Rongbo.Core
 
         public virtual TRepository GetDefineRepository<TRepository>() where TRepository : class, IRepository
         {
-            if (_componentContext == null)
-                return Dependency.Instance.Container.Resolve<TRepository>();
-            return _componentContext.Resolve<TRepository>();
+            return ContextAccessor.GetHttpContext().RequestServices.GetService<TRepository>();
         }
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class, IBaseEntity

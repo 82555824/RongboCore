@@ -5,11 +5,21 @@ using System.Threading.Tasks;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Rongbo.Common.AutoMapper;
 using Rongbo.Common.Models;
+using Rongbo.Common.Utilities;
+using Rongbo.Core;
+using Rongbo.Core.DependencyInjection;
+using Rongbo.UnitOfWork;
+using Rongbo.Core.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace RongboMvc
 {
@@ -36,12 +46,35 @@ namespace RongboMvc
                     options.Cookie.Domain = Configuration["Authentication:CookieDomain"];
                 });
 
+            services.AddHttpContextAccessor();
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddUnitOfWork<IRongboUnitOfWork, RongboUnitOfWork>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("MySqlServer"),
+                    op =>
+                    {
+                        op.UseRowNumberForPaging();
+                    });
+            });
+
             services.AddControllersWithViews();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-
+            //自动注册自定义仓储
+            var types = Reflection.GetTypesByInterface<IRepository>().Where(o => !o.IsGenericType);
+            builder.RegisterTypes(types.ToArray()).AsImplementedInterfaces().InstancePerLifetimeScope();
+            //自动注册服务
+            types = Reflection.GetTypesByInterface<IService>().Where(o => !o.IsGenericType);
+            builder.RegisterTypes(types.ToArray()).AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterModule<LifetimeModule>();
+            builder.RegisterBuildCallback(container =>
+            {
+                ContextAccessor._httpContextAccessor = container.Resolve<IHttpContextAccessor>();
+                Dependency.Instance.Container = container;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,8 +95,10 @@ namespace RongboMvc
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
             app.UseAuthentication();
+
+            app.UseStateAutoMapper();
 
             app.UseEndpoints(endpoints =>
             {

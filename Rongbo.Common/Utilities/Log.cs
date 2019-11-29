@@ -9,7 +9,7 @@ namespace Rongbo.Common.Utilities
     {
         private static ILoggerFactory _loggerFactory;
 
-        internal static void SetLoggerFactory(ILoggerFactory loggerFactory)
+        public static void SetLoggerFactory(ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;
         }

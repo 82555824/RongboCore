@@ -24,7 +24,7 @@ namespace Rongbo.Core.DependencyInjection
             }
         }
 
-        public IContainer Container { get; internal set; }
+        public IContainer Container { get; set; }
     }
 
 }
