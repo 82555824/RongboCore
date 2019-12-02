@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Rongbo.Entity;
 using Rongbo.Service;
 using RongboMvc.Models;
 
@@ -26,8 +27,12 @@ namespace RongboMvc.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //User user = null;
+            //var name = user.Name;
             // return Ok(new { id = 1 ,name="111"}); ;
-            var model = await _bookService.Get(1);
+            //var model = await _bookService.Get(1);
+            //await _bookService.AddEntity(new Book { Name = "新增的书", Price = 9999, CategoryId = 1 });
+            var tt = await _bookService.GetPagerAsync();
             return View();
         }
 
@@ -46,5 +51,10 @@ namespace RongboMvc.Controllers
         {
             return View();
         }
+    }
+
+    public class User
+    {
+        public string Name { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Rongbo.Core
 
     public interface IQuery<TEntity> where TEntity : IBaseEntity
     {
-        ValueTask<TEntity> GetAsync(params object[] keys);
+        Task<TEntity> GetAsync(params object[] keys);
 
         Task<TDto> GetAsync<TDto>(params object[] keys);
 

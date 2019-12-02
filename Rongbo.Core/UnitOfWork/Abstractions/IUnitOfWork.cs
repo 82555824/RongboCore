@@ -11,10 +11,6 @@ namespace Rongbo.Core
 {
     public interface IUnitOfWork: IUnitOfWorkCommit, IUnitOfWorkReference
     {
-        EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
-
-        ValueTask<EntityEntry<TEntity>> AddAsync<TEntity>(TEntity entity, CancellationToken cancellationToken = default) where TEntity : class;
-
         Task AddRangeAsync(params object[] entities);
 
         EntityEntry<TEntity> Attach<TEntity>(TEntity entity) where TEntity : class;

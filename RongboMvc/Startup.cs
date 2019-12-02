@@ -23,21 +23,27 @@ using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Rongbo.Common.NLog;
 using Rongbo.Common.Settings;
+using RongboMvc.Filter;
 
 namespace RongboMvc
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
         public IConfiguration Configuration { get; }
 
+        public IWebHostEnvironment Env { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton(new Appsettings(Env.ContentRootPath));
+
             services.Configure<Authentication>(Configuration.GetSection("Authentication"));
             //cookie 身份验证
             services.AddAuthentication(Configuration["Authentication:CookieAuthenticationScheme"])
@@ -64,7 +70,10 @@ namespace RongboMvc
 
             services.AddNLog();
 
-            services.AddControllersWithViews().AddNewtonsoftJson(options => {
+            services.AddControllersWithViews(o =>
+            {
+                o.Filters.Add(typeof(GlobalExceptionsFilter));
+            }).AddNewtonsoftJson(options => {
                 //忽略循环引用
                 options.SerializerSettings.ReferenceLoopHandling = GlobalSettings.JsonSettings.ReferenceLoopHandling;
                 //不使用驼峰样式的key

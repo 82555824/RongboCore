@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rongbo.Core;
+using Rongbo.Core.Entity;
+using Rongbo.Core.Extensions;
 using Rongbo.Core.Service;
 using Rongbo.Entity;
 using Rongbo.Model.ViewModels;
@@ -26,6 +28,17 @@ namespace Rongbo.Service
 
             var tt =  await _unitOfWork.GetDefineRepository<IBookRepository>().GetBook(id);
             return model;
+        }
+
+        public async Task<bool> AddEntity(Book book)
+        {
+            await repository.AddAsync(book);
+            return await _unitOfWork.CommitAsync() > 0;
+        }
+
+        public async Task<IPager<Book>> GetPagerAsync()
+        {
+            return await repository.AsQueryable().OrderBy(o=>o.Id).GetPagerAsync(1, 2);
         }
     }
 }

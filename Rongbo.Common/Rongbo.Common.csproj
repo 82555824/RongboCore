@@ -8,12 +8,17 @@
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="新文件夹\" />
   </ItemGroup>
 
 </Project>

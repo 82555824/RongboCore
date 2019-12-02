@@ -129,7 +129,7 @@ namespace Rongbo.Core
             Table.RemoveRange(entities);
         }
 
-        public async ValueTask<TEntity> GetAsync(params object[] keys)
+        public async Task<TEntity> GetAsync(params object[] keys)
         {
             Check.NotEmpty(keys, nameof(keys));
 

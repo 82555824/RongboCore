@@ -19,7 +19,7 @@ namespace Rongbo.Repositories
 
         public async Task<BookEntity> GetBook(int id)
         {
-            return await Query<BookEntity>().FromSqlInterpolated($"select a.id,a.name,b.categoryname from tb_book a inner join tb_category b on a.categoryid = b.id where a.id={id}").FirstOrDefaultAsync();
+            return await Query<BookEntity>().FromSql($"select a.id,a.name,b.categoryname from tb_book a inner join tb_category b on a.categoryid = b.id where a.id={id}").FirstOrDefaultAsync();
         }
     }
 }
