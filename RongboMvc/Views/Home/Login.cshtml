@@ -1,15 +1,42 @@
-﻿
+﻿@model LoginRequest
 @{
-    Layout = null;
+    ViewData["Title"] = "登录";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
-</head>
 <body>
+    <div class="container">
+        <div class="header">
+            <label class="header-label">幼儿园招生</label>
+        </div>
+        <div class="title">
+            <span class="title-span">登录&nbsp;|</span>
+            @*<a href="@Url.Action("Register","Register")" class="title-a">新用户注册</a>*@
+        </div>
+        <form class="login layui-form" method="post">
+            <div class="login-box">
+                <img src="~/img/user.png" class="login-img">
+                <input type="text" class="input01" asp-for="Id" autocomplete="off" placeholder="请输入浙里办id" />
+            </div>
+            <div class="login-box">
+                <img src="~/img/key.png" class="login-img">
+                <input type="text" class="input01" asp-for="Name" autocomplete="off" placeholder="请输入浙里办name" />
+            </div>
+            <button class="button" lay-submit lay-filter="submit">登录</button>
+            <div asp-validation-summary="All" style="display: none;"></div>
+        </form>
+
+    </div>
 </body>
-</html>
+
+@section scripts{
+    <script src="~/js/validate.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        ; !function () {
+        }();
+
+
+    </script>
+}
+
+
+

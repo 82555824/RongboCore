@@ -67,8 +67,8 @@ namespace Rongbo.Common.NLog
                         builder.AppendLine($"   Authorization: {request.Headers["Authorization"]}");
                     if (httpContext.User.Identity.IsAuthenticated)
                         builder.AppendLine($"   Identity: {string.Join(" | ", httpContext.User.Claims)}");
-                    if (request.Method != "GET")
-                        builder.AppendLine($"   Body: {ReadBodyString(request)}");
+                    //if (request.Method != "GET")
+                    //    builder.AppendLine($"   Body: {ReadBodyString(request)}");
                 }
             }
         }

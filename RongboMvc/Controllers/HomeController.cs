@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Rongbo.Entity;
+using Rongbo.Models.RequestModels;
 using Rongbo.Service;
 using RongboMvc.Models;
 
@@ -36,6 +37,8 @@ namespace RongboMvc.Controllers
             return View();
         }
 
+        
+
         public IActionResult Privacy()
         {
             return View();
@@ -51,10 +54,11 @@ namespace RongboMvc.Controllers
         {
             return View();
         }
-    }
 
-    public class User
-    {
-        public string Name { get; set; }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
+        {
+            return View(loginRequest);
+        }
     }
 }
